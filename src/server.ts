@@ -8,12 +8,9 @@ import Database from './config/database'
 import APIRoutes from './routes/api'
 import UserRoute from './routes/user'
 
-import Auth from './controllers/auth'
-
 class Server {
   public app: express.Application
 
-  private auth: Auth = new Auth()
   private database: Database = new Database(process.env.DATABASE_URL || 'mongodb://localhost:27017/test')
 
   constructor() {
@@ -38,8 +35,8 @@ class Server {
   }
 
   private routes() {
-    this.app.use('/api', this.auth.checked, new APIRoutes().router)
-    this.app.use('/user', this.auth.checked, new UserRoute().router)
+    this.app.use('/api', new APIRoutes().router)
+    this.app.use('/user', new UserRoute().router)
   }
 
   private startDatabase() {
