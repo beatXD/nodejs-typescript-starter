@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-
 import options from '../utils/db-config'
 
 class Database {
@@ -36,7 +35,7 @@ class Database {
     })
   }
 
-  private restart(ms: number = 3000) {
+  private restart(ms = 3000) {
     setTimeout(() => {
       mongoose.connect(this.url, options)
     }, ms)
@@ -45,7 +44,7 @@ class Database {
   /**
    * Start Database
    */
-  public async start() {
+  public async start(): Promise<any> {
     await mongoose.connect(this.url, options)
   }
 }

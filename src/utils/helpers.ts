@@ -1,6 +1,7 @@
 import { IUserModel } from '../models/users'
+import { ITokenData } from './interfaces'
 
-export const formatUserData = (user: IUserModel): any => {
+export const formatUserData = (user: IUserModel): ITokenData => {
   return {
     id: user._id,
     email: user.email,

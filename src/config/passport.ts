@@ -1,7 +1,6 @@
 import passport from 'passport'
-import passportLocal from 'passport-local'
 import passportJWT from 'passport-jwt'
-
+import passportLocal from 'passport-local'
 import { User } from '../models/users'
 import { validatePassword } from '../utils/auth-helpers'
 

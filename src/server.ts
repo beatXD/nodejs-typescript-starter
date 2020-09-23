@@ -1,10 +1,8 @@
-import express, { NextFunction, Request, Response } from 'express'
+import { json, urlencoded } from 'body-parser'
 import compression from 'compression'
-import bodyParser from 'body-parser'
+import express, { NextFunction, Request, Response } from 'express'
 import morgan from 'morgan'
-
 import Database from './config/database'
-
 import APIRoutes from './routes/api'
 import UserRoute from './routes/user'
 
@@ -30,8 +28,8 @@ class Server {
     })
     this.app.use(compression())
     this.app.use(morgan('dev'))
-    this.app.use(bodyParser.json())
-    this.app.use(bodyParser.urlencoded({ extended: false }))
+    this.app.use(json())
+    this.app.use(urlencoded({ extended: false }))
   }
 
   private routes() {

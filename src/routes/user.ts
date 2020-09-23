@@ -1,6 +1,6 @@
-import UserController from '../controllers/user'
 import { Router } from 'express'
 import Auth from '../controllers/auth'
+import UserController from '../controllers/user'
 
 class UserRoute {
   public router: Router

@@ -1,15 +1,15 @@
+import { NextFunction, Request, Response } from 'express'
+import passport from 'passport'
+import { User } from '../models/users'
+import { hashPassword } from '../utils/auth-helpers'
 import { decodeToken, generateToken } from './../utils/auth-helpers'
 import { formatUserData } from './../utils/helpers'
-import { hashPassword } from '../utils/auth-helpers'
-import { NextFunction, Request, Response } from 'express'
-import { User } from '../models/users'
-import passport from 'passport'
 
 class UserController {
   /**
    * me
    */
-  public me(req: Request, res: Response) {
+  public me(req: Request, res: Response): any {
     const token: any = req.headers.authorization?.split(' ')
     const user = decodeToken(token[1])
     return res.status(200).send(user)
@@ -18,7 +18,7 @@ class UserController {
   /**
    * register
    */
-  public async register(req: Request, res: Response) {
+  public async register(req: Request, res: Response): Promise<any> {
     try {
       const { email, password, firstName, lastName } = req.body
       const user = await User.findOne({ email })
@@ -40,7 +40,7 @@ class UserController {
   /**
    * login
    */
-  public login(req: Request, res: Response, next: NextFunction) {
+  public login(req: Request, res: Response, next: NextFunction): any {
     return passport.authenticate('local', { session: false }, (err, user) => {
       if (err) return next(err)
       if (!user) return res.status(401).end()
