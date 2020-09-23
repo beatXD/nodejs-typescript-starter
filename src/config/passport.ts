@@ -2,6 +2,9 @@ import passport from 'passport'
 import passportLocal from 'passport-local'
 import passportJWT from 'passport-jwt'
 
+import { User } from '../models/users'
+import { validatePassword } from '../utils/auth-helpers'
+
 const LocalStrategy = passportLocal.Strategy
 const JwtStrategy = passportJWT.Strategy
 const ExtractJwt = passportJWT.ExtractJwt
@@ -16,7 +19,18 @@ passport.deserializeUser((obj, done) => {
 
 passport.use(
   new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
-    // Find local user login
+    try {
+      const user = await User.findOne({ email }).lean()
+
+      if (!user) return done(null, undefined)
+
+      const isMatch = await validatePassword(user.password, password)
+      if (!isMatch) return done(null, undefined)
+
+      return done(null, user)
+    } catch (error) {
+      return done(error, undefined)
+    }
   })
 )
 
@@ -26,9 +40,14 @@ passport.use(
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.SECRET_JWT as string
     },
-    (payload, done) => {
-      // Authentication user is exist.
-      return done(null, payload)
+    async (payload, done) => {
+      try {
+        const user = await User.findById({ _id: payload.id })
+        if (user) return done(null, user)
+        return done(null, undefined)
+      } catch (error) {
+        return done(error, null)
+      }
     }
   )
 )
