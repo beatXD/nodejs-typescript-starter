@@ -41,6 +41,7 @@ passport.use(
     },
     async (payload, done) => {
       try {
+        if (new Date().getTime() > payload.expired) return done(null, undefined)
         const user = await User.findById({ _id: payload.id })
         if (user) return done(null, user)
         return done(null, undefined)
