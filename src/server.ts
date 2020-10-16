@@ -1,6 +1,7 @@
 import { json, urlencoded } from 'body-parser'
 import compression from 'compression'
 import express, { NextFunction, Request, Response } from 'express'
+import helmet from 'helmet'
 import morgan from 'morgan'
 import Database from './config/database'
 import APIRoutes from './routes/api'
@@ -26,6 +27,10 @@ class Server {
       res.header('Content-Type', 'application/json;charset=utf-8')
       next()
     })
+
+    this.app.set('trust proxy', 1)
+
+    this.app.use(helmet())
     this.app.use(compression())
     this.app.use(morgan('dev'))
     this.app.use(json())
