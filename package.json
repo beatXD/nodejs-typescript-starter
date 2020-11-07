@@ -4,6 +4,7 @@
   "description": "Build backend API using NodeJS TypeScript",
   "main": "index.js",
   "scripts": {
+    "postinstall": "tsc -b",
     "build": "npm run clean && tsc -b",
     "clean": "rimraf ./dist",
     "dev": "ts-node-dev --respawn src/index.ts",
