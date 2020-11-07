@@ -9,7 +9,6 @@ import UserRoute from './routes/user'
 
 class Server {
   public app: express.Application
-
   private database: Database = new Database(process.env.DATABASE_URL || 'mongodb://localhost:27017/test')
 
   constructor() {

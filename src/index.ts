@@ -3,9 +3,7 @@ import { createServer } from 'http'
 import path from 'path'
 import app from './server'
 
-if (process.env.NODE_ENV === 'production') {
-  DotenvConfig({ path: path.join(__dirname, '..', '.env') })
-} else {
+if (process.env.NODE_ENV !== 'production') {
   DotenvConfig({ path: path.join(__dirname, '..', '.env.local') })
 }
 
