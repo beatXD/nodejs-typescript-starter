@@ -7,7 +7,7 @@ Create default backend API
 - **Language:** TypeScript
 - **Framework:** NodeJS
 - **Database:** Mongo
-- **Container:** Docker (coming soon)
+- **Container:** Docker
 
 ## Download source
 
@@ -15,13 +15,25 @@ Create default backend API
 $ git clone https://github.com/blackinno/backend.git
 ```
 
-## Development
+## Environments
 
-**Environments setup:**
+**PROD**
+
+- `SECRET_JWT=__YOUR_SECRET_KEY__`
+- `NODE_ENV=production`
+- `DATABASE_URL=mongodb://__DATABASE_ENDPOINT__`
+- `DB_DATABASE=__YOUR_DATABASE__`
+- `DB_USER=__YOUR_USER__`
+- `DB_PASSWORD=__YOUR_PASSWORD__`
+- `DB_SSL=true`
+
+**LOCAL**
 
 - `PORT=5000`
 - `DATABASE_URL=mongodb://localhost:27017/test`
 - `SECRET_JWT=MY_SECRET_JWT`
+
+## Development
 
 You can change to your environments as `.env.local`
 
@@ -40,9 +52,3 @@ You can change to your environments as `.env.local`
    ```
 
 **Backend endpoint:** _`http//:localhost:5000`_
-
-**TODO:**
-
-- [ ] add Docker
-- [ ] add Prettier
-- [ ] add Eslint
