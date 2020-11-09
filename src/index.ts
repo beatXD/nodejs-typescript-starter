@@ -1,11 +1,6 @@
-import { config as DotenvConfig } from 'dotenv'
 import { createServer } from 'http'
-import path from 'path'
+import './config/environment'
 import app from './server'
-
-if (process.env.NODE_ENV !== 'production') {
-  DotenvConfig({ path: path.join(__dirname, '..', '.env.local') })
-}
 
 require('./config/passport')
 const port = process.env.PORT || 5000

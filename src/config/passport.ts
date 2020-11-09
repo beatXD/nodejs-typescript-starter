@@ -37,7 +37,7 @@ passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.SECRET_JWT as string
+      secretOrKey: process.env.SECRET_JWT
     },
     async (payload, done) => {
       try {
